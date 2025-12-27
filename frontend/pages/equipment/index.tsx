@@ -124,7 +124,8 @@ export default function EquipmentPage() {
     router.push(`/equipment/${id}`);
   };
 
-  if (!isAuthenticated) return null;
+  // TEMPORARY: Removed for preview mode
+  // if (!isAuthenticated) return null;
 
   return (
     <Layout>

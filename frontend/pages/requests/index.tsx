@@ -128,28 +128,28 @@ export default function RequestsPage() {
       title: 'New',
       status: 'new',
       icon: AlertCircle,
-      color: 'border-yellow-400 bg-yellow-50',
+      color: 'border-amber-400 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 dark:border-amber-500',
     },
     {
       id: 'in_progress',
       title: 'In Progress',
       status: 'in_progress',
       icon: Clock,
-      color: 'border-blue-400 bg-blue-50',
+      color: 'border-blue-400 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 dark:border-blue-500',
     },
     {
       id: 'repaired',
       title: 'Repaired',
       status: 'repaired',
       icon: CheckCircle2,
-      color: 'border-green-400 bg-green-50',
+      color: 'border-emerald-400 bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 dark:border-emerald-500',
     },
     {
       id: 'scrap',
       title: 'Scrap',
       status: 'scrap',
       icon: XCircle,
-      color: 'border-red-400 bg-red-50',
+      color: 'border-red-400 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 dark:border-red-500',
     },
   ];
 
@@ -182,7 +182,8 @@ export default function RequestsPage() {
     return new Date(scheduledDate) < new Date();
   };
 
-  if (!isAuthenticated) return null;
+  // TEMPORARY: Removed for preview mode
+  // if (!isAuthenticated) return null;
 
   return (
     <Layout>
@@ -225,18 +226,28 @@ export default function RequestsPage() {
               return (
                 <div
                   key={column.id}
-                  className={`bg-white rounded-lg shadow-sm border-t-4 ${column.color}`}
+                  className={`rounded-xl shadow-soft border-t-4 ${column.color} backdrop-blur-sm`}
                   onDragOver={handleDragOver}
                   onDrop={() => handleDrop(column.status)}
                 >
                   {/* Column Header */}
-                  <div className="p-4 border-b">
+                  <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Icon className="w-5 h-5" />
-                        <h3 className="font-semibold text-gray-900">{column.title}</h3>
+                        <Icon className={`w-5 h-5 ${
+                          column.id === 'new' ? 'text-amber-600 dark:text-amber-400' :
+                          column.id === 'in_progress' ? 'text-blue-600 dark:text-blue-400' :
+                          column.id === 'repaired' ? 'text-emerald-600 dark:text-emerald-400' :
+                          'text-red-600 dark:text-red-400'
+                        }`} />
+                        <h3 className="font-semibold text-gray-900 dark:text-white">{column.title}</h3>
                       </div>
-                      <span className="bg-gray-200 text-gray-700 text-sm font-medium px-2 py-1 rounded-full">
+                      <span className={`text-sm font-bold px-2.5 py-1 rounded-full ${
+                        column.id === 'new' ? 'bg-amber-200 text-amber-900 dark:bg-amber-800 dark:text-amber-100' :
+                        column.id === 'in_progress' ? 'bg-blue-200 text-blue-900 dark:bg-blue-800 dark:text-blue-100' :
+                        column.id === 'repaired' ? 'bg-emerald-200 text-emerald-900 dark:bg-emerald-800 dark:text-emerald-100' :
+                        'bg-red-200 text-red-900 dark:bg-red-800 dark:text-red-100'
+                      }`}>
                         {columnRequests.length}
                       </span>
                     </div>
@@ -245,7 +256,7 @@ export default function RequestsPage() {
                   {/* Cards */}
                   <div className="p-4 space-y-3 min-h-[500px] max-h-[calc(100vh-300px)] overflow-y-auto">
                     {columnRequests.length === 0 ? (
-                      <p className="text-sm text-gray-400 text-center py-8">
+                      <p className="text-sm text-gray-400 dark:text-gray-500 text-center py-8">
                         No requests
                       </p>
                     ) : (
@@ -255,10 +266,10 @@ export default function RequestsPage() {
                           draggable
                           onDragStart={() => handleDragStart(request)}
                           onClick={() => router.push(`/requests/${request.id}`)}
-                          className={`bg-white border rounded-lg p-4 cursor-move hover:shadow-md transition-shadow ${
+                          className={`bg-white dark:bg-gray-800 border rounded-xl p-4 cursor-move hover:shadow-lg transition-all hover:scale-[1.02] ${
                             isOverdue(request.scheduled_date) && request.status !== 'repaired'
-                              ? 'border-red-400 bg-red-50'
-                              : 'border-gray-200'
+                              ? 'border-red-400 bg-red-50 dark:bg-red-900/20 dark:border-red-500'
+                              : 'border-gray-200 dark:border-gray-700'
                           }`}
                         >
                           {/* Request Type Badge */}

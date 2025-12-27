@@ -105,7 +105,8 @@ export default function CalendarPage() {
 
   const selectedDayEvents = selectedDate ? getEventsForDay(selectedDate) : [];
 
-  if (!isAuthenticated) return null;
+  // TEMPORARY: Removed for preview mode
+  // if (!isAuthenticated) return null;
 
   return (
     <Layout>

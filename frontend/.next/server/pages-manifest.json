@@ -1,12 +1,8 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/requests": "pages/requests.js",
-  "/teams": "pages/teams.js",
-  "/": "pages/index.js",
-  "/equipment": "pages/equipment.js",
-  "/login": "pages/login.js",
+  "/_error": "pages/_error.js",
   "/dashboard": "pages/dashboard.js",
-  "/calendar": "pages/calendar.js"
+  "/equipment": "pages/equipment.js",
+  "/requests": "pages/requests.js"
 }

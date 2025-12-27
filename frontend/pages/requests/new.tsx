@@ -126,11 +126,12 @@ export default function NewRequestPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (!isAuthenticated) return null;
-
   const equipment = equipmentData?.equipment || [];
   const teams = teamsData?.teams || [];
   const technicians = techniciansData?.technicians || [];
+
+  // TEMPORARY: Removed for preview mode
+  // if (!isAuthenticated) return null;
 
   return (
     <Layout>
